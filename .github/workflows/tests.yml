@@ -47,5 +47,7 @@ jobs:
         run: python -m openmarket_ai
       - name: Run installed command
         run: openmarket-ai --symbol BTCUSD
+      - name: Run bundled synthetic research
+        run: python -m openmarket_ai --example --format json
       - name: Build wheel
         run: python -m pip wheel --no-deps --wheel-dir dist .

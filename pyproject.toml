@@ -4,8 +4,8 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "openmarket-ai"
-version = "0.1.0"
-description = "An experimental, offline financial research starter"
+version = "0.2.0"
+description = "Offline historical OHLCV research with auditable reports"
 requires-python = ">=3.10"
 dependencies = []
 
@@ -21,3 +21,6 @@ where = ["src"]
 [tool.pytest.ini_options]
 testpaths = ["tests"]
 addopts = "-q"
+
+[tool.setuptools.package-data]
+openmarket_ai = ["fixtures/*.csv"]

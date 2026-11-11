@@ -1,5 +1,21 @@
 🌍 OpenMarket AI Agent
 
+## Current release: offline historical research MVP (0.2.0)
+
+The runnable product reads a local OHLCV CSV, validates it, computes SMA20/SMA50, Wilder RSI14 and ATR14, and exports an auditable Markdown or JSON report. The broader AI platform below is a roadmap: there is no AI model, live data feed, backtest engine, or trading execution in this release.
+
+```bash
+python -m pip install -e ".[dev]"
+python -m openmarket_ai --example
+python -m openmarket_ai --example --format json --output sample-report.json
+python -m pytest
+```
+
+The example is **invented synthetic data**, never market prices. Reports remain ABSTAIN and do not provide orders or personalized investment advice. Output paths must be new files.
+
+[راهنمای کامل فارسی و قالب CSV](docs/GETTING_STARTED_FA.md) · [Calculation conventions](docs/METHODOLOGY.md) · [Release notes](CHANGELOG.md)
+
+
 Financial Intelligence for Everyone
 
 Free Forever | Open Source | AI-Powered | Community-Driven
