@@ -6,7 +6,7 @@ To build a free, open-source, community-driven AI platform that makes financial 
 
 Our long-term goal is to create an ecosystem of intelligent agents capable of analyzing global financial markets, combining technical, fundamental, macroeconomic, and risk information into transparent, explainable research.
 
-**Project Status: Early Development**
+**Project Status: Offline historical research MVP 0.2.0**
 
 All features described in this roadmap are planned unless explicitly marked as completed.
 
@@ -37,15 +37,16 @@ All features described in this roadmap are planned unless explicitly marked as c
 ### Market Data
 
 - [ ] Identify legally usable historical XAUUSD data sources
-- [ ] Build a Python market data ingestion module
-- [ ] Validate timestamps, missing data, and price consistency
-- [ ] Implement local historical data storage
+- [x] Build a Python market data ingestion module (local CSV workflow only)
+- [x] Validate timestamps, missing data, and price consistency (local CSV workflow only)
+- [x] Implement local historical data storage (local CSV workflow only)
 
 ### Technical Analysis
 
-- [ ] Moving averages and trend analysis
-- [ ] RSI and MACD indicators
-- [ ] ATR-based volatility measurement
+- [x] Trailing SMA20/SMA50 and alignment observations
+- [x] Wilder RSI14
+- [ ] MACD indicators
+- [x] Wilder ATR14 volatility measurement
 - [ ] Support and resistance research
 - [ ] Market structure and price action analysis
 
@@ -58,12 +59,12 @@ All features described in this roadmap are planned unless explicitly marked as c
 
 ### Research Outputs
 
-- [ ] Generate structured market research reports
-- [ ] Identify potential bullish, bearish, and neutral scenarios
+- [x] Generate historical CSV research reports with provenance and limitations
+- [x] Describe conditional bullish, bearish, and neutral research hypotheses (unvalidated)
 - [ ] Calculate hypothetical entry, invalidation, and target levels
-- [ ] Explain assumptions and limitations
+- [x] Explain assumptions and limitations
 
-**Expected outcome:** A reproducible XAUUSD research prototype without live order execution.
+**Current result:** A local CSV research prototype, usable with permitted XAUUSD data. Only synthetic data is bundled; no real data source has been selected or validated. The remaining boxes are future work.
 
 ## Phase 3 — AI Agent Architecture
 
