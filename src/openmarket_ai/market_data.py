@@ -15,6 +15,7 @@ TIMEFRAMES = {"1m": 60, "5m": 300, "15m": 900, "30m": 1800,
 
 @dataclass(frozen=True)
 class Bar:
+    """One immutable OHLCV observation with an aware timestamp."""
     timestamp: datetime
     open: float
     high: float
@@ -25,11 +26,13 @@ class Bar:
 
 @dataclass(frozen=True)
 class Dataset:
+    """Validated chronological bars and the SHA-256 of their input bytes."""
     bars: tuple[Bar, ...]
     sha256: str
 
 
 def _number(value: str, field: str, line: int) -> float:
+    """Parse and bound one CSV number, identifying the offending record."""
     try:
         number = float(value)
     except (ValueError, TypeError) as exc:
@@ -94,6 +97,7 @@ def parse_csv(raw: bytes, *, now: datetime | None = None) -> Dataset:
 
 
 def load_csv(path: str | Path) -> Dataset:
+    """Read a bounded local file and apply the strict CSV data contract."""
     with Path(path).open("rb") as stream:
         raw = stream.read(MAX_BYTES + 1)
     return parse_csv(raw)

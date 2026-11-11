@@ -11,12 +11,13 @@ from openmarket_ai.research import create_demo_report
 
 
 def main(argv: list[str] | None = None) -> int:
+    """Run the demo, synthetic example, or explicitly contextualized CSV workflow."""
     parser = argparse.ArgumentParser(description="OpenMarket AI offline research MVP")
     parser.add_argument("--version", action="version", version=__version__)
     inputs = parser.add_mutually_exclusive_group()
     inputs.add_argument("--csv", type=Path, help="Local UTF-8 OHLCV file")
     inputs.add_argument("--example", action="store_true", help="Use bundled SYNTHETIC data")
-    parser.add_argument("--symbol", default="XAUUSD", help="Instrument label")
+    parser.add_argument("--symbol", help="Required for CSV; demo defaults to XAUUSD")
     parser.add_argument("--source", help="User-declared data source")
     parser.add_argument("--data-license", help="User-declared data usage terms")
     parser.add_argument("--venue")
@@ -31,11 +32,13 @@ def main(argv: list[str] | None = None) -> int:
         if args.csv:
             names = ("source", "data_license", "venue", "instrument_type", "quote_currency", "timeframe")
             missing = ["--" + name.replace("_", "-") for name in names if not getattr(args, name)]
+            if args.symbol is None:
+                missing.insert(0, "--symbol")
             if missing or not args.closed_bars:
                 raise ValueError("CSV research requires " + ", ".join(missing + ([] if args.closed_bars else ["--closed-bars"])))
             dataset = load_csv(args.csv)
             metadata = Metadata(symbol=args.symbol, **{name: getattr(args, name) for name in names})
-            report = build_report(dataset, metadata)
+            report = build_report(dataset, metadata, closed_bars=args.closed_bars)
         elif args.example:
             raw = files("openmarket_ai").joinpath("fixtures/synthetic_ohlcv.csv").read_bytes()
             dataset = parse_csv(raw)
@@ -43,7 +46,7 @@ def main(argv: list[str] | None = None) -> int:
                                 "none", "synthetic", "DEMO", "1d", synthetic=True)
             report = build_report(dataset, metadata)
         else:
-            demo = create_demo_report(args.symbol)
+            demo = create_demo_report(args.symbol if args.symbol is not None else "XAUUSD")
             report = asdict(demo)
         if args.format == "json":
             text = json.dumps(report, indent=2, ensure_ascii=False, allow_nan=False) + "\n"

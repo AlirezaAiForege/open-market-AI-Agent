@@ -9,6 +9,7 @@ from openmarket_ai.research import create_demo_report
 
 @dataclass(frozen=True)
 class Metadata:
+    """User-declared instrument and source context, not independently verified."""
     symbol: str
     source: str
     data_license: str
@@ -20,6 +21,7 @@ class Metadata:
 
 
 def _metadata(metadata: Metadata) -> dict:
+    """Normalize the symbol and validate single-line provenance fields."""
     data = asdict(metadata)
     data["symbol"] = create_demo_report(metadata.symbol).symbol
     for key in ("source", "data_license", "venue", "instrument_type", "quote_currency"):
@@ -32,7 +34,10 @@ def _metadata(metadata: Metadata) -> dict:
     return data
 
 
-def build_report(dataset: Dataset, metadata: Metadata) -> dict:
+def build_report(dataset: Dataset, metadata: Metadata, *, closed_bars: bool = False) -> dict:
+    """Compute historical observations after explicit closed-bar confirmation."""
+    if not metadata.synthetic and closed_bars is not True:
+        raise ValueError("explicit closed-bar confirmation is required")
     context = _metadata(metadata)
     bars = dataset.bars
     if len(bars) < 50:
@@ -84,6 +89,7 @@ def build_report(dataset: Dataset, metadata: Metadata) -> dict:
 
 
 def _safe(value: object) -> str:
+    """Escape user-controlled metadata for literal Markdown display."""
     text = html.escape(str(value), quote=True)
     for character in ("\\", chr(96), "*", "_", "[", "]", "|", "#", "!"):
         text = text.replace(character, "\\" + character)
@@ -91,6 +97,7 @@ def _safe(value: object) -> str:
 
 
 def to_markdown(report: dict) -> str:
+    """Render report provenance, indicators, hypotheses, and limitations."""
     lines = ["# OpenMarket AI - Historical Research", "", f"Mode: {report['mode']}",
              "Signal: ABSTAIN (research only)", "", "## Dataset and provenance", ""]
     for key, value in report["metadata"].items():
@@ -99,7 +106,7 @@ def to_markdown(report: dict) -> str:
         lines.append(f"- {key}: {_safe(value)}")
     lines.extend(["", "## Computed observations", "", report["observation"], ""])
     for key, value in report["indicators"].items():
-        lines.append(f"- {key}: {value:.6f}")
+        lines.append(f"- {key}: {value:.12g}")
     lines.extend(["", "## Conditional research scenarios", ""])
     for key, value in report["scenarios"].items():
         lines.append(f"- {key}: {value}")

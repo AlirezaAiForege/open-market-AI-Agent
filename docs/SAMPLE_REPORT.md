@@ -27,9 +27,9 @@ Signal: ABSTAIN (research only)
 Last close > SMA20 > SMA50 (upward historical alignment).
 
 - sma20: 106.472185
-- sma50: 105.440720
-- rsi14: 80.287695
-- atr14: 2.200000
+- sma50: 105.44072
+- rsi14: 80.2876952154
+- atr14: 2.2
 
 ## Conditional research scenarios
 

@@ -5,6 +5,7 @@ from openmarket_ai.market_data import Bar
 
 
 def _validate(values: Sequence[float], period: int, extra: int = 0) -> None:
+    """Reject invalid periods, insufficient history, and unsupported prices."""
     if isinstance(period, bool) or not isinstance(period, int) or period < 1:
         raise ValueError("period must be a positive integer")
     if len(values) < period + extra:
