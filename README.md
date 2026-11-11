@@ -101,6 +101,7 @@ Financial markets involve substantial risk. All research outputs must be indepen
 Intelligence Should Empower Everyone.
 
 OpenMarket AI Agent — Built for People, Not Privilege.
+
 ## Run the current offline demo
 
 Python 3.10 or newer is required. From the repository root:
