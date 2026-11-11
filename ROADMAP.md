@@ -19,13 +19,14 @@ All features described in this roadmap are planned unless explicitly marked as c
 - [x] Create the public GitHub repository
 - [x] Select the MIT open-source license
 - [x] Publish the project README
-- [ ] Publish the official development roadmap
-- [ ] Create contribution guidelines
-- [ ] Publish a code of conduct
-- [ ] Establish security and responsible disclosure guidelines
-- [ ] Define the initial technical architecture
+- [x] Publish the official development roadmap
+- [x] Create contribution guidelines
+- [x] Publish a code of conduct
+- [x] Establish security and responsible disclosure guidelines
+- [x] Define the initial technical architecture
 - [ ] Create GitHub Issues and development milestones
-- [ ] Establish automated testing and code review
+- [x] Create an installable Python starter with an offline demo and tests
+- [x] Configure automated Python tests and a pull-request review workflow
 
 **Expected outcome:** A transparent and organized foundation ready for global contributors.
 

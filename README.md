@@ -101,3 +101,24 @@ Financial markets involve substantial risk. All research outputs must be indepen
 Intelligence Should Empower Everyone.
 
 OpenMarket AI Agent — Built for People, Not Privilege.
+## Run the current offline demo
+
+Python 3.10 or newer is required. From the repository root:
+
+```bash
+python -m venv .venv
+```
+
+Activate the environment with `source .venv/bin/activate` on Linux/macOS, or `.venv\Scripts\Activate.ps1` in Windows PowerShell. If PowerShell activation is restricted, use `.venv\Scripts\python.exe` instead of `python` in the commands below.
+
+```bash
+python -m pip install -e ".[dev]"
+python -m openmarket_ai
+python -m pytest
+```
+
+The report must show `DEMO`, `NO_MARKET_DATA`, and `ABSTAIN`. `--symbol BTCUSD` changes only the display label; it does not retrieve market data. Installation downloads development tools; report generation is offline. No API keys, market feed, AI provider, or trading account are needed.
+
+[راهنمای شروع فارسی](docs/GETTING_STARTED_FA.md)
+
+Pull requests run package installation, tests, module and command-line demos, and wheel building on Linux (Python 3.10 and 3.14) and Windows (Python 3.14). View results in the **Actions** tab. A passing run validates this starter, not financial performance.

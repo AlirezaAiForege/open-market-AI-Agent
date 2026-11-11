@@ -48,7 +48,7 @@ Contributions are welcome regardless of experience level.
 6. Make focused changes and add relevant tests.
 7. Open a Pull Request explaining your changes.
 
-As the technical codebase develops, setup and testing instructions will be published.
+See the README quick start and [Persian setup guide](docs/GETTING_STARTED_FA.md). Run `python -m pytest` before submitting a pull request. GitHub Actions checks installation, tests, CLI demos, and wheel building on Linux and Windows.
 
 ## 4. Development Standards
 
